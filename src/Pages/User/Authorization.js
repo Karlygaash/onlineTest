@@ -23,26 +23,27 @@ const Authorization = () =>{
 		e.preventDefault()
 
 		axios
-			.post("http://185.100.67.103/api/login/admin", {
+			.post("http://77.240.39.57/ai/signup", {
+                firstName,
+                lastName,
 				email,
 				password,
+                "roleId" : 2,
 			})
 			.then(result => {
-				const token = result.data.access_token
-
-				localStorage.setItem("dm_token", token)
-                navigate("/")
+                navigate("/user/login")
+                toast.success("Успешно зарегистрировался")
 			})
 			.catch(error => {
-				toast.error(error.response.data.errors[0].message)
+				toast.error(error.response.data.errors[0].code)
 			})
 	}
 
     useEffect(() => {
-		const token_ = localStorage.getItem("dm_token")
+		const token_ = localStorage.getItem("t_token")
 
 		if (token_) {
-			navigate("/")
+			navigate("/user/test")
 		}
 	}, [navigate])
 
@@ -61,7 +62,6 @@ const Authorization = () =>{
                         <MdOutlinePersonOutline className="login__icon"/>
                         <input
                             className="input"
-                            name="email"
                             type="text"
                             minLength={4}
                             maxLength={50}
@@ -77,8 +77,7 @@ const Authorization = () =>{
                         <MdOutlinePersonOutline className="login__icon"/>
                         <input
                             className="input"
-                            name="email"
-                            type="email"
+                            type="text"
                             minLength={4}
                             maxLength={50}
                             placeholder="Фамилия"
@@ -93,7 +92,6 @@ const Authorization = () =>{
                         <MdOutlineMail className="login__icon"/>
                         <input
                             className="input"
-                            name="email"
                             type="email"
                             minLength={4}
                             maxLength={50}

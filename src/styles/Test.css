@@ -10,10 +10,12 @@
     border-radius: 10px;
     height: 130px;
     position: relative;
+    cursor: pointer;
 }
 
 .test__item p{
     line-height: 26px;
+    cursor: pointer;
 }
 
 .test__icons{
@@ -23,6 +25,15 @@
     bottom: 15px;
     right: 15px;
     gap: 10px;
+}
+
+.test__icons p{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.38px;
+    color: black;
+    text-decoration:underline;
+    cursor: pointer;
 }
 
 .section__head{

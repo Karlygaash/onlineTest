@@ -4,13 +4,16 @@ import { MdOutlineMail } from "react-icons/md";
 import '../../styles/Login.css'
 import { useState } from "react"
 import axios from "axios"
-import { toast } from "react-toastify"
 import {ReactComponent as Favicon} from '../../images/icons/logo.svg'
 import {ReactComponent as Rectangle} from '../../images/icons/Rectangle_1.svg'
 import {ReactComponent as RectangleSmall} from '../../images/icons/Rectangle.svg'
 import { RiLock2Line } from "react-icons/ri";
+import { MdOutlinePersonOutline } from "react-icons/md";
+import { toast } from "react-toastify";
 
-const Login = () =>{
+const Authorization = () =>{
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 
@@ -20,19 +23,19 @@ const Login = () =>{
 		e.preventDefault()
 
 		axios
-			.post("http://77.240.39.57/ai/signin", {
+			.post("http://77.240.39.57/ai/signup", {
+                firstName,
+                lastName,
 				email,
 				password,
+                "roleId" : 1,
 			})
 			.then(result => {
-				const token = result.data.result
-
-				localStorage.setItem("t_token", token)
-                navigate("/admin/test")
-                toast.success("Добро пожаловать в Online Test")
+                navigate("/admin/login");
+                toast.success("Успешно зарегистрировался")
 			})
 			.catch(error => {
-				toast.error(error.response.data.errors[0].message)
+				toast.error(error.response.data.errors[0].code)
 			})
 	}
 
@@ -48,10 +51,40 @@ const Login = () =>{
     <div className="login">
         <Rectangle className="rectangle"/>
         <RectangleSmall className="rectangle_2"/>
-        <form onSubmit={handleSubmitClicked} className="form">
+        <form onSubmit={handleSubmitClicked} className="form form__auth">
                 <div className="form__header">
                     <Favicon className="login__logo"/>
-                    <h3>Вход для преподавателей</h3>
+                    <h3>Регистрация</h3>
+                </div>
+                <div className="form_box">
+                    <label className="form_label">Введите имя</label>
+                    <div className="form__input">
+                        <MdOutlinePersonOutline className="login__icon"/>
+                        <input
+                            className="input"
+                            type="text"
+                            minLength={4}
+                            maxLength={50}
+                            placeholder="Имя"
+                            value={firstName}
+                            onChange={e => setFirstName(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className="form_box">
+                    <label className="form_label">Введите фамилию</label>
+                    <div className="form__input">
+                        <MdOutlinePersonOutline className="login__icon"/>
+                        <input
+                            className="input"
+                            type="text"
+                            minLength={4}
+                            maxLength={50}
+                            placeholder="Фамилия"
+                            value={lastName}
+                            onChange={e => setLastName(e.target.value)}
+                        />
+                    </div>
                 </div>
                 <div className="form_box">
                     <label className="form_label">Введите e-mail</label>
@@ -59,7 +92,6 @@ const Login = () =>{
                         <MdOutlineMail className="login__icon"/>
                         <input
                             className="input"
-                            name="email"
                             type="email"
                             minLength={4}
                             maxLength={50}
@@ -85,13 +117,12 @@ const Login = () =>{
                         />
                     </div>
                 </div>
-                <div className="login__p ">
-                    <p onClick={()=> navigate('/admin/auth')}>Регистрация</p>
-                    <p onClick={()=>navigate('/admin/forgot-password')}>Забыли пароль?</p>
+                <div className="auth__p login__p">
+                    <p onClick={()=> navigate('/admin/login')}>Уже есть аккаунт? Войти</p>
                 </div>
-                <button className="button" type="submit">Войти</button>
+                <button className="button" type="submit">Создать аккаунт</button>
             </form>
     </div>)
 };
 
-export default Login;
+export default Authorization;

@@ -8,28 +8,21 @@ import { toast } from "react-toastify"
 import {ReactComponent as Favicon} from '../../images/icons/logo.svg'
 import {ReactComponent as Rectangle} from '../../images/icons/Rectangle_1.svg'
 import {ReactComponent as RectangleSmall} from '../../images/icons/Rectangle.svg'
-import { RiLock2Line } from "react-icons/ri";
 
-const Login = () =>{
+const ForgetPassword = () =>{
     const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
 
     const navigate = useNavigate()
 
     const handleSubmitClicked = (e) => {
 		e.preventDefault()
-
+        const formDate = new FormData();
+        formDate.append("email", email);
 		axios
-			.post("http://77.240.39.57/ai/signin", {
-				email,
-				password,
-			})
+			.post("http://77.240.39.57/ai/forgot-password", formDate)
 			.then(result => {
-				const token = result.data.result
-
-				localStorage.setItem("t_token", token)
-                navigate("/admin/test")
-                toast.success("Добро пожаловать в Online Test")
+                navigate("/admin/login")
+                toast.success("Успешно отправился")
 			})
 			.catch(error => {
 				toast.error(error.response.data.errors[0].message)
@@ -51,10 +44,10 @@ const Login = () =>{
         <form onSubmit={handleSubmitClicked} className="form">
                 <div className="form__header">
                     <Favicon className="login__logo"/>
-                    <h3>Вход для преподавателей</h3>
+                    <h3>Востaновление пароля</h3>
                 </div>
+                <p className="forgot__label">Пожалуйста, введите ваш email ниже. На указанный email придет пароль для восстановления пароля.</p>
                 <div className="form_box">
-                    <label className="form_label">Введите e-mail</label>
                     <div className="form__input">
                         <MdOutlineMail className="login__icon"/>
                         <input
@@ -69,29 +62,12 @@ const Login = () =>{
                         />
                     </div>
                 </div>
-
-                <div className="form_box">
-                    <label for="password" className="form-label">Введите пароль</label>
-                    <div className="form__input">
-                        <RiLock2Line className="login__icon"/>
-                        <input className="input"
-                            name="password"
-                            type="password"
-                            minLength={4}
-                            maxLength={50}
-                            placeholder="Пароль"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                    </div>
+                <div className="login__p auth__p">
+                    <p onClick={()=> navigate('/admin/login')}>Вход</p>
                 </div>
-                <div className="login__p ">
-                    <p onClick={()=> navigate('/admin/auth')}>Регистрация</p>
-                    <p onClick={()=>navigate('/admin/forgot-password')}>Забыли пароль?</p>
-                </div>
-                <button className="button" type="submit">Войти</button>
+                <button className="button" type="submit">Отправить</button>
             </form>
     </div>)
 };
 
-export default Login;
+export default ForgetPassword;

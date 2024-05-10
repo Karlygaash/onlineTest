@@ -22,14 +22,13 @@ const ChangePassword = () => {
 				},
 			})
 			.then(result => {
-				navigate('/admin/profile')
+				navigate('/user/profile')
                 toast.success('Успешно изменился')
 			})
 			.catch(error => {
 				console.log(error)
 			})
 	}
-
     return(
         <div className="section">
             <div className="section__header">
@@ -64,7 +63,7 @@ const ChangePassword = () => {
                     </div>
                     <div className='profile__buttons'>
                         <button onClick={()=>putChangePassword()} className='orange__button'>Изменить</button>
-                        <button onClick={()=>navigate('/admin/profile')} className='orange__button'>Назад</button>
+                        <button onClick={()=>navigate('/user/profile')} className='orange__button'>Назад</button>
                     </div>
                 </div>
             </div>

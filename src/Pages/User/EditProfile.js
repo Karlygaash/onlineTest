@@ -1,16 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Profile.css'
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
-import { toast } from 'react-toastify';
- 
+
 const EditProfile = () => {
-    const navigate = useNavigate()
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
+    const navigate = useNavigate()
 
-    const postProfileBy = () => {
+    const putProfileBy = () => {
 		const token = localStorage.getItem("t_token")
 
 		axios
@@ -18,14 +18,14 @@ const EditProfile = () => {
                 firstName,
                 lastName,
                 email,
-                "roleId": 1
+                "roleId": 2
             },{
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then(result => {
-				navigate('/admin/profile')
+				navigate('/user/profile')
                 toast.success('Успешно изменился')
 			})
 			.catch(error => {
@@ -55,6 +55,7 @@ const EditProfile = () => {
     useEffect(()=>{
         getProfileBy()
     }, [])
+
     return(
         <div className="section">
             <div className="section__header">
@@ -99,8 +100,8 @@ const EditProfile = () => {
                     </div>
                     </div>
                     <div className='profile__buttons'>
-                        <button onClick={()=>postProfileBy()} className='orange__button'>Изменить</button>
-                        <button onClick={()=>navigate('/admin/profile')} className='orange__button'>Назад</button>
+                        <button onClick={()=>putProfileBy()} className='orange__button'>Изменить</button>
+                        <button onClick={()=>navigate('/user/profile')} className='orange__button'>Назад</button>
                     </div>
                 </div>
             </div>

@@ -74,6 +74,15 @@
     color: black;
 }
 
+.forgot__label{
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.38px;
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .form__input{
     border-bottom: 1px solid black;
     display: flex;

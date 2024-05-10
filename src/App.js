@@ -11,15 +11,29 @@ import Test from './Pages/Admin/Test';
 import Profile from './Pages/Admin/Profile';
 import Students from './Pages/Admin/Students';
 import EditProfile from './Pages/Admin/EditProfile';
+import EditProfileUser from './Pages/User/EditProfile';
 import ChangePassword from './Pages/Admin/ChangePassword';
+import ChangePasswordUser from './Pages/User/ChangePassword';
 import TestById from './Pages/Admin/TestById';
 import AddTest from './Pages/Admin/AddTest';
+import MainLayoutUser from './layout/MainLayoutUser';
+import TestUser from './Pages/User/Test'
+import ProfileUser from './Pages/User/Profile'
+import Results from './Pages/User/Results';
+import AuthorizationAdmin from './Pages/Admin/Authorization';
+import './styles/ConfirmModal.css'
+import ForgetPassword from './Pages/Admin/ForgetPassword';
+import ForgetPasswordUser from './Pages/User/ForgetPassword';
 
 function App() {
   const router=createBrowserRouter([
     {
       path: "/admin/login",
 		  element: <Login/>
+    },
+    {
+      path: '/admin/auth',
+      element: <AuthorizationAdmin/>
     },
     {
       path: "/user/login",
@@ -38,6 +52,39 @@ function App() {
 		  element: <Authorization/>
     },
     {
+      path: '/admin/forgot-password',
+      element: <ForgetPassword/>
+    },
+    {
+      path: '/user/forgot-password',
+      element: <ForgetPasswordUser/>
+    },
+    {
+      element: <MainLayoutUser/>,
+      children: [
+        {
+          path: "/user/test",
+          element: <TestUser/>
+        },
+        {
+          path: "/user/profile",
+          element: <ProfileUser/>
+        },
+        {
+          path: "/user/profile/edit",
+          element: <EditProfileUser/>
+        },
+        {
+          path: "/user/profile/password",
+          element: <ChangePasswordUser/>
+        },
+        {
+          path: "/user/results",
+          element: <Results/>
+        },
+    ]
+    },
+    {
       element: <MainLayout/>,
       children: [
         {
@@ -49,7 +96,7 @@ function App() {
           element: <AddTest/>
         },
         {
-          path: "/admin/test/:testId",
+          path: "/admin/test/:quizId",
           element: <TestById/>
         },
         {

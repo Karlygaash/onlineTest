@@ -20,15 +20,15 @@ const LoginUser = () =>{
 		e.preventDefault()
 
 		axios
-			.post("http://185.100.67.103/api/login/admin", {
+			.post("http://77.240.39.57/ai/signin", {
 				email,
 				password,
 			})
 			.then(result => {
-				const token = result.data.access_token
-
-				localStorage.setItem("dm_token", token)
-                navigate("/")
+				const token = result.data.result
+				localStorage.setItem("t_token", token)
+                navigate("/user/test")
+                toast.success("Добро пожаловать в Online Test")
 			})
 			.catch(error => {
 				toast.error(error.response.data.errors[0].message)
@@ -36,10 +36,10 @@ const LoginUser = () =>{
 	}
 
     useEffect(() => {
-		const token_ = localStorage.getItem("dm_token")
+		const token_ = localStorage.getItem("t_token")
 
 		if (token_) {
-			navigate("/")
+			navigate("/user/test")
 		}
 	}, [navigate])
 
@@ -86,7 +86,7 @@ const LoginUser = () =>{
                 </div>
                 <div className="login__p">
                     <p onClick={()=> navigate('/user/auth')}>Регистрация</p>
-                    <p>Забыли пароль?</p>
+                    <p onClick={()=>navigate('/user/forgot-password')}>Забыли пароль?</p>
                 </div>
                 <button className="button" type="submit">Войти</button>
             </form>

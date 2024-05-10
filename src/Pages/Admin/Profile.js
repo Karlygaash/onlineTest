@@ -1,9 +1,37 @@
 import { useNavigate } from 'react-router-dom';
 import Ava from '../../images/icons/avaa.jpg'
 import '../../styles/Profile.css'
+import { useEffect, useState } from 'react';
+import axios from 'axios'
 
 const Profile = () => {
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
     const navigate = useNavigate()
+
+    const getProfileBy = () => {
+		const token = localStorage.getItem("t_token")
+
+		axios
+			.get("http://77.240.39.57/ai/user/profile",{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then(result => {
+				setEmail(result.data.result.email)
+                setFirstName(result.data.result.firstName)
+                setLastName(result.data.result.lastName)
+			})
+			.catch(error => {
+				console.log(error)
+			})
+	}
+
+    useEffect(()=>{
+        getProfileBy()
+    }, [])
 
     return(
         <div className="section">
@@ -12,8 +40,8 @@ const Profile = () => {
             </div>
             <div className="container">
                 <div className="profile__container">
-                    <h4>Улдана Романовна</h4>
-                    <p>karla@gmail.com</p>
+                    <h4>{firstName} {lastName}</h4>
+                    <p>{email}</p>
                     <img src={Ava} alt=""/>
                     <div className='profile__buttons'>
                         <button onClick={()=>navigate('/admin/profile/edit')} className='orange__button'>Изменить профиль</button>

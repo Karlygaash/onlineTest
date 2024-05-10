@@ -16,7 +16,8 @@
 }
 
 .marker{
-    width: 10px;
-    height: 10px;
+    width: 6px;
+    height: 6px;
     margin-right: 10px;
+    margin-bottom: 3px;
 }
