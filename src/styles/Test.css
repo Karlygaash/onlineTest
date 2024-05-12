@@ -69,3 +69,20 @@
 .search input:focus{
     outline: none;
 }
+
+.add__students-quiz{
+    width: 50%;
+    margin-top: 40px;
+}
+
+.add__students-quiz h4{
+    margin-bottom: 20px;
+}
+
+.flex{
+    display: flex;
+}
+
+.radio{
+    margin-right: 10px;
+}

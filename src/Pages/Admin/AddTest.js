@@ -4,6 +4,8 @@ import axios from 'axios'
 import { BsCircleFill } from "react-icons/bs";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { MdOutlineQuiz } from "react-icons/md";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 const AddTest = () => {
     const [title, setTitle] = useState("")
@@ -63,27 +65,35 @@ const AddTest = () => {
             </div>
             <div className="container">
                 <div className="add__test-form">
-                    <div className="form__input">
-                        <input
-                            className="input"
-                            type="text"
-                            minLength={4}
-                            maxLength={50}
-                            placeholder="Название теста"
-                            value={title}
-                            onChange={(e)=>setTitle(e.target.value)}
-                        />
+                    <div className='form_box'>
+                        <label className="form_label">Название теста</label>
+                        <div className="form__input">
+                            <MdOutlineQuiz className="login__icon"/>
+                            <input
+                                className="input"
+                                type="text"
+                                minLength={4}
+                                maxLength={50}
+                                placeholder="Тест"
+                                value={title}
+                                onChange={(e)=>setTitle(e.target.value)}
+                            />
+                        </div>
                     </div>
-                    <div className="form__input number">
-                        <input
-                            className="input"
-                            type="number"
-                            minLength={4}
-                            maxLength={50}
-                            placeholder="Кол.вопросов"
-                            value={countOfQuestion}
-                            onChange={(e)=>setCountOfQuestion(e.target.valueAsNumber)}
-                        />
+                    <div className='form_box'>
+                        <label className="form_label">Количество вопросов</label>
+                        <div className="form__input number">
+                            <AiOutlineQuestionCircle className="login__icon"/>
+                            <input
+                                className="input"
+                                type="number"
+                                minLength={4}
+                                maxLength={50}
+                                placeholder=""
+                                value={countOfQuestion}
+                                onChange={(e)=>setCountOfQuestion(e.target.valueAsNumber)}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="form__textarea">

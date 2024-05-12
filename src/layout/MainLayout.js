@@ -9,14 +9,35 @@ import { IoBookOutline } from "react-icons/io5";
 import { IoIosContact } from "react-icons/io";
 import { BiLogOutCircle } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
+import axios from 'axios'
 
 const MainLayout = () =>{
 	const navigate = useNavigate()
 	const [visible, setVisible] = useState(false)
+	const [roleId, setRoleId] = useState(0)
 
 	const removeItem = () =>{
 	    localStorage.removeItem("t_token")
 		navigate("/admin/login")
+	}
+
+	const getProfileBy = () => {
+		const token = localStorage.getItem("t_token")
+
+		axios
+			.get("http://77.240.39.57/ai/user/profile",{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then(result => {
+				if(result.data.result.roleId === 2){
+					navigate('/user/test')
+				}
+			})
+			.catch(error => {
+				console.log(error)
+			})
 	}
 
     useEffect(() => {
@@ -25,6 +46,7 @@ const MainLayout = () =>{
 		if (!token) {
 			navigate("/admin/login")
 		}
+		getProfileBy()
 	}, [navigate])
 
     return(

@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const TestById = () => {
-    const [test, setTest] = useState([])
     const navigate = useNavigate()
     const {quizId} = useParams()
     const [quiz, setQuiz] = useState({})
@@ -37,6 +36,7 @@ const TestById = () => {
         <div className="section">
             <div className="section__header">
                 <h1>{quiz.title}</h1>
+                <button onClick={()=>navigate(`/admin/test/${quizId}/add`)} className='orange__button'>Добавить студентов</button>
             </div>
             <div className="container">
                 <p>Количество вопросов: {quiz.countOfQuestion}</p>

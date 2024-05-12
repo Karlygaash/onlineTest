@@ -25,10 +25,17 @@ const LoginUser = () =>{
 				password,
 			})
 			.then(result => {
+                console.log(result.data)
 				const token = result.data.result
-				localStorage.setItem("t_token", token)
-                navigate("/user/test")
-                toast.success("Добро пожаловать в Online Test")
+                if(result.data.metadata.additionalProp1 === '1'){
+                    navigate("/user/login")
+                    toast.error("Это аккаунт для админа")
+                }
+                if(result.data.metadata.additionalProp1 === '2'){
+                    localStorage.setItem("t_token", token)
+                    navigate("/user/test")
+                    toast.success("Добро пожаловать в Online Test")
+                }
 			})
 			.catch(error => {
 				toast.error(error.response.data.errors[0].message)
@@ -89,6 +96,9 @@ const LoginUser = () =>{
                     <p onClick={()=>navigate('/user/forgot-password')}>Забыли пароль?</p>
                 </div>
                 <button className="button" type="submit">Войти</button>
+                <div className="login__p auth__p">
+                    <p onClick={()=> navigate('/admin/login')}>Вход для преподавателей</p>
+                </div>
             </form>
     </div>)
 };

@@ -25,14 +25,19 @@ const Login = () =>{
 				password,
 			})
 			.then(result => {
-				const token = result.data.result
-
-				localStorage.setItem("t_token", token)
-                navigate("/admin/test")
-                toast.success("Добро пожаловать в Online Test")
+                if(result.data.metadata.additionalProp1 === '1'){
+                    const token = result.data.result
+                    localStorage.setItem("t_token", token)
+                    navigate("/admin/test")
+                    toast.success("Добро пожаловать в Online Test")
+                }
+                if(result.data.metadata.additionalProp1 === '2'){
+                    navigate("/admin/login")
+                    toast.error("Вход запрещен для студентов")
+                }
 			})
 			.catch(error => {
-				toast.error(error.response.data.errors[0].message)
+				toast.error(error.response.data.errors[0].code)
 			})
 	}
 
@@ -90,6 +95,9 @@ const Login = () =>{
                     <p onClick={()=>navigate('/admin/forgot-password')}>Забыли пароль?</p>
                 </div>
                 <button className="button" type="submit">Войти</button>
+                <div className="login__p auth__p">
+                    <p onClick={()=> navigate('/user/login')}>Вход для студентов</p>
+                </div>
             </form>
     </div>)
 };

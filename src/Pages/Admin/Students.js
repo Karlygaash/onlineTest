@@ -1,66 +1,65 @@
 import { CiSearch } from "react-icons/ci";
 import '../../styles/Students.css'
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 const Students = () => {
+    const [isTrue, setIsTrue] = useState(false)
+    const [search, setSearch] = useState("")
+    const [test, setTest] = useState([])
+    const navigate = useNavigate()
+    
+    const getTest = () => {
+		const token = localStorage.getItem("t_token")
+
+		axios
+			.get(`http://77.240.39.57/ai/quiz/admin?search=${search}`,{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then(result => {
+				setTest(result.data.result)
+			})
+			.catch(error => {
+				console.log(error)
+			})
+	}
+
+    useEffect(()=>{
+        getTest()
+    }, [isTrue, search])
+
     return(
         <div className="section">
             <div className='section__head'>
                 <div className="search">
-                    <input placeholder="Поиск"/>
+                <input 
+                        type="text"
+                        value={search}
+                        onChange={(e)=>setSearch(e.target.value)}
+                        placeholder="Поиск"/>
                     <CiSearch className="search__icon"/>
                 </div>
             </div>
             <div className="section__header">
-                <h1>Студенты</h1>
+                <h1>Посмотреть результаты</h1>
             </div>
             <div className="container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                №
-                            </th>
-                            <th>
-                                Имя
-                            </th>
-                            <th>
-                                Фамилия
-                            </th>
-                            <th>
-                                Название теста
-                            </th>
-                            <th>
-                                Количество вопросов
-                            </th>
-                            <th>
-                                Балл
-                            </th>
-                            <th>
-                                Оценка
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Улдана</td>
-                            <td>Романовна</td>
-                            <td>История</td>
-                            <td>40</td>
-                            <td>30</td>
-                            <td>75%</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Улдана</td>
-                            <td>Романовна</td>
-                            <td>История</td>
-                            <td>40</td>
-                            <td>30</td>
-                            <td>75%</td>
-                        </tr>
-                    </tbody>
-                </table>
+                {test.length === 0 ? "У вас пока нет теста, создайте его." : 
+                <div className='test__container'>
+                    {test.filter(item=>item.passedCount>0).map(e=>(
+                    <div key={e.id} className='test__item'>
+                        <h3 onClick={()=>navigate(`/admin/students/${e.id}`)}>{e.title}</h3>
+                        <p onClick={()=>navigate(`/admin/students/${e.id}`)}>Пройдено: <b>{e.passedCount}</b> студентов</p>
+                        <div className="test__icons">
+                            <p onClick={()=>navigate(`/admin/students/${e.id}`)}>Посмотреть</p>
+                        </div>
+                    </div>
+                    ))}
+                </div>
+                }
             </div>
         </div>
     );
