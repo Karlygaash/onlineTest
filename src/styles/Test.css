@@ -5,15 +5,20 @@
 }
 
 .test__item{
-    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding: 15px;
     border-radius: 10px;
-    height: 130px;
+    height: 180px;
     position: relative;
     cursor: pointer;
 }
 
+.test__item h3{
+    margin-bottom: 7px;
+}
+
 .test__item p{
+    
     line-height: 26px;
     cursor: pointer;
 }
@@ -85,4 +90,24 @@
 
 .radio{
     margin-right: 10px;
+}
+
+.test_item img{
+    width: 80px;
+    height: 80px;
+}
+
+.test_item{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.test_item p{
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 500;
 }

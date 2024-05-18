@@ -7,6 +7,14 @@ import axios from 'axios'
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import 'primereact/resources/themes/md-light-indigo/theme.css'
 import { toast } from "react-toastify";
+import InformationIcons from '../../images/icons/informations.png'
+import Management from '../../images/icons/management.png'
+import FoodSafety from '../../images/food-safety.png'
+import Oil from '../../images/oil.png'
+import Chemistry from '../../images/chemistry.png'
+import Mountain from '../../images/mountain.png'
+import Tech from '../../images/tech.png'
+import Product from '../../images/product.png'
 
 const Test = () => {
     const [test, setTest] = useState([])
@@ -68,34 +76,47 @@ const Test = () => {
                     <CiSearch className="search__icon"/>
                 </div>
             </div>
-            <div className='head__rectangle'><div className='head__circle'></div></div>
             <div className="section__header">
-                <h1>Тесты</h1>
-                <button onClick={()=>navigate('/admin/test/add')} className='orange__button'>Создать тест</button>
+                <h1>Группы образовательных программ</h1>
             </div>
             <div className="container">
-                {test.length === 0 ? "У вас пока нет теста, создайте его." : 
                 <div className='test__container'>
-                    {test.map(e=>(
-                    <div key={e.id} className='test__item'>
-                        <h3 onClick={()=>navigate(`/admin/test/${e.id}`)}>{e.title}</h3>
-                        <p onClick={()=>navigate(`/admin/test/${e.id}`)}>{e.countOfQuestion} вопросов</p>
-                        <div className="test__icons">
-                            <RiDeleteBin6Line onClick={()=>{setIdDelete(e.id); setVisible(true)}}/>
-                        </div>
+                    <div onClick={()=>navigate('/admin/test/is')} className="test_item">
+                        <img src={InformationIcons} alt=""/>
+                        <p>7М06136 - Информационные системы</p>
                     </div>
-                    ))}
+                    <div onClick={()=>navigate('/admin/test/management')} className="test_item">
+                        <img src={Management} alt=""/>
+                        <p>7M06137 - IT-менеджмент</p>
+                    </div>
+                    <div onClick={()=>navigate('/admin/test/chemistry')} className="test_item">
+                        <img src={Chemistry} alt=""/>
+                        <p>7М07138 - Химическая технология органических веществ</p>
+                    </div>
+                    <div onClick={()=>navigate('/admin/test/food-tech')} className="test_item">
+                        <img src={Product} alt=""/>
+                        <p>7М07239 - Технология продовольственных продуктов</p>
+                    </div>
+                    <div onClick={()=>navigate('/admin/test/food-safety')} className="test_item">
+                        <img src={FoodSafety} alt=""/>
+                        <p>7М07241- Пищевая безопасность</p>
+                    </div>
+                    <div onClick={()=>navigate('/admin/test/cons')} className="test_item">
+                        <img src={Tech} alt=""/>
+                        <p>7М07242 - Технология и конструирование изделий легкой промышленности</p>
+                    </div>
+                    <div onClick={()=>navigate('/admin/test/gor')} className="test_item">
+                        <img src={Mountain} alt=""/>
+                        <p>7М07252 - Горное дело</p>
+                    </div>
+                    <div onClick={()=>navigate('/admin/test/neft')} className="test_item">
+                        <img src={Oil} alt=""/>
+                        <p>7M07253 - Нефтегазовое дело</p>
+                    </div>
                 </div>
-                }
+
             </div>
-            <ConfirmDialog visible={visible} 
-                    onHide={() => setVisible(false)} 
-                    header="Удалить этот тест?" 
-                    reject={()=>setVisible(false)} 
-                    accept={() => deleteTest()}
-                    acceptLabel="Удалить"
-                    rejectLabel="Отмена"
-                />
+     
         </div>
     );
 };

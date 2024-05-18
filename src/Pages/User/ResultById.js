@@ -41,6 +41,7 @@ const ResultById = () => {
 				setAnswers(result.data.result.answers)
                 setPoint(result.data.result.point)
                 setPercent(result.data.result.percent)
+                console.log(result.data.result)
 			})
 			.catch(error => {
 				console.log(error)
@@ -55,7 +56,7 @@ const ResultById = () => {
     return(
         <div className="section">
             <div className="section__header">
-                <h1>Мой профиль</h1>
+                <h1>{test.title}</h1>
             </div>
             <div className="container">
                 <p>Количество вопросов: {test.countOfQuestion}</p>

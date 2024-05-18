@@ -90,8 +90,7 @@ const Login = () =>{
                         />
                     </div>
                 </div>
-                <div className="login__p ">
-                    <p onClick={()=> navigate('/admin/auth')}>Регистрация</p>
+                <div className="login__p auth__p"> 
                     <p onClick={()=>navigate('/admin/forgot-password')}>Забыли пароль?</p>
                 </div>
                 <button className="button" type="submit">Войти</button>

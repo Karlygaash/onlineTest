@@ -31,6 +31,27 @@ const Test = () => {
 				console.log(error)
 			})
 	}
+
+    const setSpecialityFunction = (speciality) => {
+        if(speciality==="is"){
+            return "7М06136 - Информационные системы";
+        }else if(speciality==="management"){
+            return "7M06137 - IT-менеджмент"
+        }else if(speciality==="chemistry"){
+            return "7М07138 - Химическая технология органических веществ";
+        }
+        else if(speciality==="food-safety"){
+            return "7М07241- Пищевая безопасность"
+        }else if(speciality==="food-tech"){
+            return "7М07239 - Технология продовольственных продуктов"
+        }else if(speciality==="cons"){
+            return "7М07242 - Технология и конструирование изделий легкой промышленности"
+        }else if(speciality==="gor"){
+            return "7М07252 - Горное дело"
+        }else if(speciality==="neft"){
+            return "7M07253 - Нефтегазовое дело"
+        }
+    }
     
     useEffect(()=>{
         getTest()
@@ -53,7 +74,8 @@ const Test = () => {
                     {tests.length === 0 ? "Здесь пока пусто" : <>
                     {tests.map(e=>(
                         <div className='test__item'>
-                            <h3 onClick={()=> {setIdQuiz(e.id); setVisible(true)}}>{e.title}</h3>
+                            <h3 onClick={()=> {setIdQuiz(e.id); setVisible(true)}}>{setSpecialityFunction(e.speciality)}</h3>
+                            <p onClick={()=> {setIdQuiz(e.id); setVisible(true)}}>{e.title}</p>
                             <p onClick={()=> {setIdQuiz(e.id); setVisible(true)}}>{e.countOfQuestion} вопросов</p>
                             <div className="test__icons">
                                 {e.isPassed === true ? <p className="">Пройдено</p>:

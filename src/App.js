@@ -28,6 +28,7 @@ import ForgetPasswordUser from './Pages/User/ForgetPassword';
 import AddStudents from './Pages/Admin/AddStudents';
 import ResultById from './Pages/User/ResultById';
 import StudentsResult from './Pages/Admin/StudentResult';
+import Speciality from './Pages/Admin/Speliciality';
 
 function App() {
   const router=createBrowserRouter([
@@ -104,12 +105,16 @@ function App() {
           element: <Test/>
         },
         {
-          path: "/admin/test/add",
+          path: "/admin/test/:specialId/add-test",
           element: <AddTest/>
         },
         {
-          path: "/admin/test/:quizId",
+          path: "/admin/test/:specialId/:quizId",
           element: <TestById/>
+        },
+        {
+          path: "/admin/test/:specialId",
+          element: <Speciality/>
         },
         {
           path: "/admin/test/:quizId/add",

@@ -65,24 +65,6 @@ const AddStudents = () => {
 			})
 	}
 
-    // const addToStudents = () => {
-    //     const token = localStorage.getItem("t_token")
-    //     console.log(token)
-	// 	axios 
-	// 		.post(`http://77.240.39.57/ai/students/quiz/add?quizId=${quizId}&studentId=${idStudent}`,{
-	// 			headers: {
-	// 				Authorization: `bearer ${token}`,
-	// 			},
-	// 		})
-	// 		.then(result => {
-    //             console.log(result.data) 
-    //             setIsTrue(true)   
-	// 		})
-	// 		.catch(error => {
-	// 			console.log(error)
-	// 		})
-    // }
-
     const addToStudents = () => {
         const token = localStorage.getItem("t_token")
 
@@ -101,25 +83,6 @@ const AddStudents = () => {
 				console.log(error)
 			})
     }
-    
-    // const addToStudents = () => {
-    //     const token = localStorage.getItem("t_token")
-
-	// 	axios
-	// 		.put(`http://77.240.39.57/ai/students/quiz/${quizId}/add/${idStudent}`,{
-	// 			headers: {
-	// 				Authorization: `Bearer ${token}`,
-	// 			},
-	// 		})
-	// 		.then(result => {
-    //             console.log(result.data)    
-    //             toast.success("Студент добавлен")
-    //             setIsTrue(true)
-	// 		})
-	// 		.catch(error => {
-	// 			console.log(error)
-	// 		})
-    // }
 
     const deleteAddedStudent =(id) => {
         const token = localStorage.getItem("t_token")

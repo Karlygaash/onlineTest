@@ -15,22 +15,41 @@ const TestById = () => {
     const navigate = useNavigate()
     const [isPassed, setIsPassed] = useState()
 
+    const [timeLeft, setTimeLeft] = useState(60); // 300 секунд = 5 минут
+    const [testCompleted, setTestCompleted] = useState(false);
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+      };
+
     const handleAnswer = (questionId, answer) => {
         //setAnswers({ ...answers, [questionId]: answer });
         const newArray = [...answers]
-        newArray.push(answer)
+        newArray[questionId]=(answer)
         setAnswers(newArray)
     };
 
     const EndTest = () => {
         let p=0
+        let c=0
         {questions.map((e, index)=> (
             <>
             {console.log(answers[index], e.correctAnswer)}
             {e.correctAnswer === answers[index] ? p++ : ""}
             </>
             ))}
-        if(p>0){
+
+        {answers.map((e, index)=>(
+            <>
+                {e.length > 0 ? c++  : ""}
+            </>
+        ))}
+
+        if(questions.length != c && !testCompleted){
+            alert("Вы полностью не ответили")
+        }else{                                                               
             quizSubmit(p)
         }
     }
@@ -48,6 +67,7 @@ const TestById = () => {
 				setTest(result.data.result)
                 setQuestions(result.data.result.questions)
                 setIsPassed(result.data.result.isPassed)
+                setTimeLeft(Number(result.data.result.timer)*60)
 			})
 			.catch(error => {
 				console.log(error)
@@ -75,14 +95,28 @@ const TestById = () => {
 				console.log(error)
 			})
     }
-    
+
+    const handleSubmit = () => {
+        setTestCompleted(true);
+        EndTest()
+        alert('Время вышло! Тест завершен.');
+    };
+
     useEffect(()=>{
         getTest()
-        if(isPassed===true){
-            navigate('/user/test')
-            toast.error("Вы уже прошли")
+    }, [])
+    
+    useEffect(()=>{
+
+        if (timeLeft > 0 && !testCompleted) {
+            const timerId = setInterval(() => {
+              setTimeLeft(timeLeft - 1);
+            }, 1000);
+            return () => clearInterval(timerId);
+        } else if (timeLeft === 0) {
+            handleSubmit();
         }
-    },[isPassed])
+    },[timeLeft, testCompleted])
     
     return(
         <div className="section">
@@ -90,8 +124,10 @@ const TestById = () => {
                 <h1>{test.title}</h1>
             </div>
             <div className="container">
+                {!testCompleted ? (
                 <div>
                 <p>Количество вопросов: {test.countOfQuestion}</p>
+                <h3>Оставшееся время: {formatTime(timeLeft)}</h3>
                 <div className="testById">
                     <ol>
                         {questions.map((e, index)=>(
@@ -102,9 +138,10 @@ const TestById = () => {
                                     <div className="flex">
                                         <input 
                                             type="radio" 
-                                            value={j.title}
-                                            onChange={()=>handleAnswer(index+1,j.title)}
+                                            value={answers[index]}
+                                            onChange={()=>handleAnswer(index,j.title)}
                                             className="radio"
+                                            checked={j.title===answers[index]}
                                         />
                                         <p>{j.title}</p>
                                     </div>
@@ -117,6 +154,9 @@ const TestById = () => {
                 
                 </div>
                 </div>
+                ) : (
+                    <div>Тест завершен.</div>
+                  )}
             </div>
             <ConfirmDialog visible={visible} 
                     onHide={() => setVisible(false)} 

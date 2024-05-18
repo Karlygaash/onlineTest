@@ -27,6 +27,27 @@ const Students = () => {
 			})
 	}
 
+    const setSpecialityFunction = (speciality) => {
+        if(speciality==="is"){
+            return "7М06136 - Информационные системы";
+        }else if(speciality==="management"){
+            return "7M06137 - IT-менеджмент"
+        }else if(speciality==="chemistry"){
+            return "7М07138 - Химическая технология органических веществ";
+        }
+        else if(speciality==="food-safety"){
+            return "7М07241- Пищевая безопасность"
+        }else if(speciality==="food-tech"){
+            return "7М07239 - Технология продовольственных продуктов"
+        }else if(speciality==="cons"){
+            return "7М07242 - Технология и конструирование изделий легкой промышленности"
+        }else if(speciality==="gor"){
+            return "7М07252 - Горное дело"
+        }else if(speciality==="neft"){
+            return "7M07253 - Нефтегазовое дело"
+        }
+    }
+
     useEffect(()=>{
         getTest()
     }, [isTrue, search])
@@ -51,7 +72,8 @@ const Students = () => {
                 <div className='test__container'>
                     {test.filter(item=>item.passedCount>0).map(e=>(
                     <div key={e.id} className='test__item'>
-                        <h3 onClick={()=>navigate(`/admin/students/${e.id}`)}>{e.title}</h3>
+                        <h3 onClick={()=>navigate(`/admin/students/${e.id}`)}>{setSpecialityFunction(e.speciality)}</h3>
+                        <p onClick={()=>navigate(`/admin/students/${e.id}`)}>{e.title}</p>
                         <p onClick={()=>navigate(`/admin/students/${e.id}`)}>Пройдено: <b>{e.passedCount}</b> студентов</p>
                         <div className="test__icons">
                             <p onClick={()=>navigate(`/admin/students/${e.id}`)}>Посмотреть</p>

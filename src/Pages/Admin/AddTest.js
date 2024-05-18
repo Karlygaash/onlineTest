@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/AddTest.css'
 import axios from 'axios'
 import { BsCircleFill } from "react-icons/bs";
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { MdOutlineQuiz } from "react-icons/md";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { IoTimerOutline } from "react-icons/io5";
 
 const AddTest = () => {
     const [title, setTitle] = useState("")
@@ -13,6 +14,9 @@ const AddTest = () => {
     const [countOfQuestion, setCountOfQuestion] = useState()
     const [questions, setQuestions] = useState([])
     const navigate = useNavigate()
+    const {specialId} = useParams()
+    const [speciality, setSpeciality] = useState("")
+    const [timer, setTimer] = useState()
 
     const generateQuiz = () => {
         const token = localStorage.getItem("t_token")
@@ -41,7 +45,9 @@ const AddTest = () => {
 			.post("http://77.240.39.57/ai/quiz", {
                 countOfQuestion,
                 questions,
-                title
+                title,
+                "speciality" : specialId,
+                'timer' : String(timer)
             }, {
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -57,6 +63,10 @@ const AddTest = () => {
 				console.log(error)
 			})
     }
+
+    useEffect(()=>{
+        console.log(specialId)
+    }, [])
 
     return(
         <div className="section">
@@ -80,6 +90,7 @@ const AddTest = () => {
                             />
                         </div>
                     </div>
+
                     <div className='form_box'>
                         <label className="form_label">Количество вопросов</label>
                         <div className="form__input number">
@@ -92,6 +103,22 @@ const AddTest = () => {
                                 placeholder=""
                                 value={countOfQuestion}
                                 onChange={(e)=>setCountOfQuestion(e.target.valueAsNumber)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className='form_box'>
+                        <label className="form_label">Ограничение времени</label>
+                        <div className="form__input number">
+                            <IoTimerOutline className="login__icon"/>
+                            <input
+                                className="input"
+                                type="number"
+                                minLength={4}
+                                maxLength={50}
+                                placeholder="минут"
+                                value={timer}
+                                onChange={(e)=>setTimer(e.target.valueAsNumber)}
                             />
                         </div>
                     </div>
