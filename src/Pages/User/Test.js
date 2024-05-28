@@ -74,9 +74,9 @@ const Test = () => {
                     {tests.length === 0 ? "Здесь пока пусто" : <>
                     {tests.map(e=>(
                         <div className='test__item'>
-                            <h3 onClick={()=> {setIdQuiz(e.id); setVisible(true)}}>{setSpecialityFunction(e.speciality)}</h3>
-                            <p onClick={()=> {setIdQuiz(e.id); setVisible(true)}}>{e.title}</p>
-                            <p onClick={()=> {setIdQuiz(e.id); setVisible(true)}}>{e.countOfQuestion} вопросов</p>
+                            <h3>{setSpecialityFunction(e.speciality)}</h3>
+                            <p>{e.title}</p>
+                            <p>{e.countOfQuestion} вопросов</p>
                             <div className="test__icons">
                                 {e.isPassed === true ? <p className="">Пройдено</p>:
                                 <p onClick={()=> {setIdQuiz(e.id); setVisible(true)}}>Начать тест</p>

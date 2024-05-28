@@ -42,7 +42,6 @@ const Profile = () => {
                 <div className="profile__container">
                     <h4>{firstName} {lastName}</h4>
                     <p>{email}</p>
-                    <img src={Ava} alt=""/>
                     <div className='profile__buttons'>
                         <button onClick={()=>navigate('/admin/profile/edit')} className='orange__button'>Изменить профиль</button>
                         <button onClick={()=>navigate('/admin/profile/password')} className='orange__button'>Изменить пароль</button>
