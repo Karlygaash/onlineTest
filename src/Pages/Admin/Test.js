@@ -15,6 +15,7 @@ import Chemistry from '../../images/chemistry.png'
 import Mountain from '../../images/mountain.png'
 import Tech from '../../images/tech.png'
 import Product from '../../images/product.png'
+import Auto from '../../images/auto.png'
 
 const Test = () => {
     const [test, setTest] = useState([])
@@ -112,6 +113,10 @@ const Test = () => {
                     <div onClick={()=>navigate('/admin/test/neft')} className="test_item">
                         <img src={Oil} alt=""/>
                         <p>7M07253 - Нефтегазовое дело</p>
+                    </div>
+                    <div onClick={()=>navigate('/admin/test/auto')} className="test_item">
+                        <img src={Auto} alt=""/>
+                        <p>6М070200 - Автоматизация и управление</p>
                     </div>
                 </div>
 

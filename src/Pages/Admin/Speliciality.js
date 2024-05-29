@@ -37,6 +37,8 @@ const Speciality = () => {
             setSpecialName("7М07252 - Горное дело")
         }else if(specialId==="neft"){
             setSpecialName("7M07253 - Нефтегазовое дело")
+        }else if(specialId==="auto"){
+            setSpecialName("6М070200 - Автоматизация и управление")
         }
     }
 
